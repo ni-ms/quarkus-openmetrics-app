@@ -3,16 +3,18 @@ package org.cactus.entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 
-
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "TABLES", schema = "information_schema")
 @Data
@@ -20,18 +22,16 @@ import java.time.Instant;
 @AllArgsConstructor
 public class InformationSchemaTable extends PanacheEntityBase {
 
-    @Id
-    public String TABLE_NAME;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
-    @ColumnDefault("''")
     @Column(name = "TABLE_CATALOG", nullable = false, length = 512)
     private String tableCatalog;
 
-    @ColumnDefault("''")
     @Column(name = "TABLE_SCHEMA", nullable = false, length = 64)
     private String tableSchema;
 
-    @ColumnDefault("''")
     @Column(name = "TABLE_TYPE", nullable = false, length = 64)
     private String tableType;
 
@@ -83,7 +83,9 @@ public class InformationSchemaTable extends PanacheEntityBase {
     @Column(name = "CREATE_OPTIONS")
     private String createOptions;
 
-    @ColumnDefault("''")
     @Column(name = "TABLE_COMMENT", nullable = false, length = 2048)
     private String tableComment;
+
+    @Column(name = "TABLE_NAME", nullable = false, length = 64)
+    private String tableName;
 }
